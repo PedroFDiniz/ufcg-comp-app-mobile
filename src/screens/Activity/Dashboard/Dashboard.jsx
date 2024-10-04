@@ -100,6 +100,7 @@ const DashboardScreen = () => {
         <Button title="Guia do usuário" onPress={handleRedirectToUserGuide} />
         <Button title="Registrar atividade" onPress={() => navigation.navigate('Activity Register')} />
         <Button title="Atividades Registradas" onPress={() => navigation.navigate('Activities List')} />
+        <Button title="Banco de Horas" onPress={() => navigation.navigate('Credit Pool')} />
         <Button
           title="Gerar Processo"
           variant="licenseButton"

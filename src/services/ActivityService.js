@@ -3,7 +3,8 @@ import {
   API_ENDPOINT_ACTIVITY_REGISTER,
   API_ENDPOINT_ACTIVITY_FIND_BY_OWNER_STATE,
   API_ENDPOINT_ACTIVITY_COMPUTE_CREDITS,
-  API_ENDPOINT_ACTIVITY_METRICS
+  API_ENDPOINT_ACTIVITY_METRICS,
+  API_ENDPOINT_ACTIVITY_KIND_STATS
 } from "../utils/constants";
 
 export async function registerActivity(activity) {
@@ -33,6 +34,14 @@ export async function fetchActivitiesComputedCredits(userEmail) {
 export async function fetchActivitiesMetrics() {
   try {
     return await API.get(API_ENDPOINT_ACTIVITY_METRICS);
+  } catch (error) {
+    handleErrors(error);
+  }
+};
+
+export async function fetchActivityKindStats(kind, userEmail) {
+  try {
+    return await API.get(`${API_ENDPOINT_ACTIVITY_KIND_STATS}/${kind}/${userEmail}`);
   } catch (error) {
     handleErrors(error);
   }

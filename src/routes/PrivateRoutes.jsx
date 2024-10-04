@@ -13,6 +13,7 @@ import { useAuth } from '../context/AuthContext';
 import DashboardScreen from '../screens/Activity/Dashboard/Dashboard';
 import ActivityRegisterScreen from '../screens/Activity/Register/Register';
 import ActivitiesListScreen from '../screens/Activity/List/List';
+import CreditPoolScreen from '../screens/Activity/CreditPool/CreditPool';
 
 // STYLES
 import styles from "./styles.router";
@@ -56,6 +57,9 @@ export const PrivateRoutes = () => {
         options={{ drawerItemStyle: { display: 'none' } }}
       />
       <Screen name="Activities List" component={ActivitiesListScreen}
+        options={{ drawerItemStyle: { display: 'none' } }}
+      />
+      <Screen name="Credit Pool" component={CreditPoolScreen}
         options={{ drawerItemStyle: { display: 'none' } }}
       />
     </Navigator>

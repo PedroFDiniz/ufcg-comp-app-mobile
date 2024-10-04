@@ -1,10 +1,6 @@
-import { useEffect, useState } from 'react';
-import { View, Button, ActivityIndicator, Image } from "react-native"
-import * as Google from 'expo-auth-session/providers/google';
+import { useState } from 'react';
+import { View, ActivityIndicator, Image } from "react-native"
 import * as WebBrowser from 'expo-web-browser';
-
-// CONSTANTS
-import { REACT_APP_GOOGLE_ANDROID_CLIENT_ID } from "../../utils/constants";
 
 // CONTEXT
 import { useAuth } from "../../context/AuthContext";
@@ -19,24 +15,16 @@ WebBrowser.maybeCompleteAuthSession();
 
 const LoginScreen = () => {
   const { handleAuthSuccess, handleAuthFailure } = useAuth();
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId: REACT_APP_GOOGLE_ANDROID_CLIENT_ID,
-  });
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (response?.type === 'success') {
-      handleAuthUser(response.authentication);
-    } else {
-      handleAuthFailure();
-    }
-  }, [response]);
-
-  const handleAuthUser = async (authentication) => {
+  const handleAuthUser = async (username, password) => {
     setIsLoading(true);
     try {
-      const response = await authStudent(authentication);
-      const userData = response.data.user;
+      const response = await authStudent(username, password);
+      const authentication = response.status;
+      const userData = { name: response.body[0]?.name, email: response.body[0]?.email }
       handleAuthSuccess(authentication, userData);
     } catch (error) {
       console.error(error);
@@ -50,14 +38,29 @@ const LoginScreen = () => {
       <Image source={require('../../../assets/retangular-name.png')} style={styles.mainImage}/>
       {isLoading ?
         <ActivityIndicator size="large" color="#004A8F" /> :
-        <Button
-          disabled={!request}
-          title={"Fazer login com o Google"}
-          onPress={() => promptAsync({
-            useProxy: false, //Set to false in production
-            showInRecents: true
-          })}
-        />
+        <View style={styles.loginContainer}>
+          <View styles={styles.usernameView}>
+            <Text style={styles.inputHeader}>Email</Text>
+            <TextInput style={styles.input} placeholder='Digite seu email CCC' value={username} onChangeText={setUsername} autoCorrect={false} autoCapitalize='none' />
+          </View>
+          <View styles={styles.passwordView}>
+            <Text style={styles.inputHeader}>Senha</Text>
+            <TextInput style={styles.input} placeholder='Digite sua senha' secureTextEntry value={password} onChangeText={setPassword} autoCorrect={false} autoCapitalize='none' />
+          </View>
+          <View styles={styles.buttonView}>
+            <Pressable style={styles.loginButton} onPress={handleAuthUser}>
+              <Text styles={styles.loginButtonText}>Login</Text>
+            </Pressable>
+          </View>
+        </View>
+        // <Button
+        //   disabled={!request}
+        //   title={"Fazer login com o Google"}
+        //   onPress={() => promptAsync({
+        //     useProxy: false, //Set to false in production
+        //     showInRecents: true
+        //   })}
+        // />
       }
     </View>
   )

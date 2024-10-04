@@ -1,5 +1,5 @@
-// OAUTH
-export const REACT_APP_GOOGLE_ANDROID_CLIENT_ID = "55679260638-do5ttoramlts78out3e1d5j5desg5tpo.apps.googleusercontent.com";
+// AUTH
+export const AUTH_ENDPOINT_TOKEN_REQUEST = "https://eureca.lsd.ufcg.edu.br/as/tokens"
 
 // API
 export const API_BASE_URL = "http://192.168.0.13:8091/";
@@ -10,6 +10,7 @@ export const API_ENDPOINT_ACTIVITY_FIND_BY_OWNER_STATE = '/activities/find_by_ow
 export const API_ENDPOINT_ACTIVITY_COMPUTE_CREDITS = '/activities/computeCredits';
 export const API_ENDPOINT_ACTIVITY_METRICS = '/activities/metrics';
 export const API_ENDPOINT_PROCESS_GENERATE = '/process/generate';
+export const API_ENDPOINT_ACTIVITY_KIND_STATS = '/activities/creditPoolActivities';
 
 // ACTIVITY
 export const ACTIVITY_UNITY_EVENT = ["-"];
